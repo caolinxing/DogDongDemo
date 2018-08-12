@@ -1,0 +1,71 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 27
+    defaultConfig {
+        applicationId "com.example.myjd.view"
+        minSdkVersion 22
+        targetSdkVersion 27
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+apply plugin: 'org.greenrobot.greendao'
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'com.android.support:appcompat-v7:27.1.1'
+    implementation 'com.android.support:design:27.1.1'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.2'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    implementation 'com.ashokvarma.android:bottom-navigation-bar:2.0.3'
+    //ok
+    implementation 'com.squareup.okhttp3:okhttp:3.4.1'
+    implementation 'com.squareup.okhttp3:mockwebserver:3.10.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.5.0'
+    //Retirfit
+    implementation 'com.squareup.retrofit2:retrofit:2.0.2'
+    //底部导航
+    implementation 'com.roughike:bottom-bar:2.0.2'
+    //数据解析器
+    implementation 'com.squareup.retrofit2:converter-gson:2.0.2'
+    //EventBus依赖
+    implementation 'org.greenrobot:eventbus:3.0.0'
+    //XBanner
+    implementation 'com.xhb:xbanner:1.3.1'
+    //FrescoHelper依赖
+    implementation 'com.facebook.fresco.helper:fresco-helper:2.1.0'
+    //RecyclerView依赖
+    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.22'
+    implementation 'com.android.support:recyclerview-v7:21.0.0'
+    //butterKnife
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+    implementation 'com.jakewharton:butterknife:8.8.1'
+    //Rxjava
+    implementation 'io.reactivex:rxjava:1.1.0'
+    implementation 'io.reactivex:rxandroid:1.1.0'
+    implementation 'com.squareup.retrofit2:adapter-rxjava:2.0.2'
+    implementation 'com.github.zhaokaiqiang.klog:library:0.0.1'
+    //xbanner
+    implementation 'com.xhb:xbanner:1.3.1'
+    //Glide
+    implementation 'jp.wasabeef:glide-transformations:3.0.1'
+    //GrennDao
+    implementation 'org.greenrobot:greendao:3.2.0'
+}
+greendao {
+    //数据库的schema版本，也可以理解为数据库版本号
+    schemaVersion 1
+    //设置DaoMaster、DaoSession、Dao包名，也就是要放置这些类的包的全路径。
+    daoPackage 'com.example.myjd.greedaotest.dao'
+    //设置DaoMaster、DaoSession、Dao目录
+    targetGenDir 'src/main/java'
+}

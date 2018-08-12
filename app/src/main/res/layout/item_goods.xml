@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="120dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="5dp">
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/item_gl_sdv"
+        app:roundedCornerRadius="20dp"
+        android:layout_width="120dp"
+        android:layout_height="match_parent" />
+    <LinearLayout
+        android:layout_toRightOf="@id/item_gl_sdv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:orientation="vertical">
+        <TextView
+           android:id="@+id/item_gl_tv_title"
+            style="@style/item_gl_tv_style"
+            android:textSize="18sp"
+            android:text="Tile"
+            android:textColor="@color/text_title_black" />
+        <TextView
+           android:id="@+id/item_gl_bargin_price"
+            style="@style/item_gl_tv_style"
+            android:textSize="14sp"
+            android:text="90"
+            android:textColor="@color/text_answer"/>
+        <TextView
+           android:id="@+id/item_gl_tv_price"
+            style="@style/item_gl_tv_style"
+            android:textSize="18sp"
+            android:text="90"
+            android:textColor="@color/text_price_red"/>
+        <TextView
+           android:id="@+id/item_gl_tv_time"
+            style="@style/item_gl_tv_style"
+            android:text="2018-09-0"
+            android:textColor="@color/text_gray"/>
+    </LinearLayout>
+</RelativeLayout>
