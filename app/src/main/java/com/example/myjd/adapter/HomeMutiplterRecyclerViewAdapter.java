@@ -6,15 +6,20 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.myjd.bean.MutilRecyclerBean;
+import com.example.myjd.utils.SpacesItemDecoration;
 import com.example.myjd.view.R;
+import com.gongwen.marqueen.SimpleMF;
+import com.gongwen.marqueen.SimpleMarqueeView;
 import com.stx.xhb.xbanner.XBanner;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -37,6 +42,7 @@ public class HomeMutiplterRecyclerViewAdapter extends BaseMultiItemQuickAdapter<
         //必须绑定type和layout的关系
         addItemType(MutilRecyclerBean.TYPE_BANNER, R.layout.item_banner);
         addItemType(MutilRecyclerBean.TYPE_CAIDAN, R.layout.item_ciadan);
+        addItemType(MutilRecyclerBean.TYPE_MIAOSHA, R.layout.item_miaosha_0);
     }
 
     @Override
@@ -83,6 +89,20 @@ public class HomeMutiplterRecyclerViewAdapter extends BaseMultiItemQuickAdapter<
                 }
                 //设置适配器
                 vp.setAdapter(new MyViewPagerAdapter(viewpagerList));
+                break;
+            case MutilRecyclerBean.TYPE_MIAOSHA:
+                SimpleMarqueeView<String> marqueeView = helper.getView(R.id.simpleMarqueeView);
+                final List<String> datas = Arrays.asList("《赋得古原草送别》", "离离原上草，一岁一枯荣。", "野火烧不尽，春风吹又生。", "远芳侵古道，晴翠接荒城。", "又送王孙去，萋萋满别情。");
+                //SimpleMarqueeView<T>，SimpleMF<T>：泛型T指定其填充的数据类型，比如String，Spanned等
+                SimpleMF<String> marqueeFactory = new SimpleMF(mContext);
+                marqueeFactory.setData(datas);
+                marqueeView.setMarqueeFactory(marqueeFactory);
+                marqueeView.startFlipping();
+                RecyclerView recycler = helper.getView(R.id.miaosha_recycler);
+                recycler.setLayoutManager(new GridLayoutManager(mContext,2));
+                recycler.addItemDecoration(new SpacesItemDecoration(5));
+                MyMiaoShaAdapter adapter = new MyMiaoShaAdapter(mContext, item.getHomeBean().getMiaosha().getList());
+                recycler.setAdapter(adapter);
                 break;
         }
     }

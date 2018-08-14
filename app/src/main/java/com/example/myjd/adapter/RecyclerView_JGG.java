@@ -29,6 +29,7 @@ public class RecyclerView_JGG extends RecyclerView.Adapter<RecyclerView_JGG.View
         this.context = context;
         this.list = list;
         this.mIndex = mIndex;
+        this.onItemClickListener = onItemClickListener;
         mPageSize = 5*2;
     }
 
@@ -44,6 +45,7 @@ public class RecyclerView_JGG extends RecyclerView.Adapter<RecyclerView_JGG.View
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         int pos = position+mIndex*mPageSize;
+        holder.itemView.setTag(pos);
         Glide.with(context).load(list.get(pos).getIcon()).into(holder.iv);
         holder.tv.setText(list.get(pos).getName());
     }

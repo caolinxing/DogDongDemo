@@ -104,6 +104,7 @@ public class HomeFragment extends BaseFragment implements HomePage_Contract.View
     public void onSuccess(JGGDaoHangBean jggDaoHangBean) {
         Logger.i(jggDaoHangBean.getMsg());
         recyclerBeanList.add(new MutilRecyclerBean(homeBean1,jggDaoHangBean,MutilRecyclerBean.TYPE_CAIDAN));
+        recyclerBeanList.add(new MutilRecyclerBean(homeBean1,null,MutilRecyclerBean.TYPE_MIAOSHA));
         adapter.notifyDataSetChanged();
     }
 

@@ -12,7 +12,7 @@ public class MutilRecyclerBean implements MultiItemEntity {
     public static final int TYPE_BANNER = 0;
     public static final int TYPE_CAIDAN = 1;
     public static final int TYPE_PAOMADENG = 2;
-    public static final int TYPE_GOODSlIST = 3;
+    public static final int TYPE_MIAOSHA = 3;
 
     private HomeBean homeBean;
     private JGGDaoHangBean jggBean;
