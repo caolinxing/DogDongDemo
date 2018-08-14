@@ -1,10 +1,14 @@
 package com.example.myjd.adapter;
 
 import android.support.annotation.Nullable;
+import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.myjd.bean.JGGDaoHangBean;
+import com.example.myjd.utils.Logger;
 import com.example.myjd.view.R;
 
 import java.util.List;
@@ -22,6 +26,13 @@ public class MyCfyRecyclerAdapter_Left extends BaseQuickAdapter<JGGDaoHangBean.D
 
     @Override
     protected void convert(BaseViewHolder helper, JGGDaoHangBean.DataBean item) {
+        TextView view = helper.getView(R.id.item_goodsList_tv);
+
+        if (item.isIschecked()){
+            view.setSelected(true);
+        }else{
+            view.setSelected(false);
+        }
         helper.setText(R.id.item_goodsList_tv,item.getName());
     }
 }

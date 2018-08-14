@@ -8,18 +8,17 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.myjd.adapter.MyCfyRecyclerAdapter_Left;
 import com.example.myjd.adapter.MyCfyecyclerViewAdapter_Right;
 import com.example.myjd.base.BaseFragment;
-import com.example.myjd.bean.HomeBean;
 import com.example.myjd.bean.JGGDaoHangBean;
 import com.example.myjd.bean.MutilRecyclerBean_GoodsXaingQing;
 import com.example.myjd.mvp.contract.JiuDaoHang_Contract;
 import com.example.myjd.mvp.presenter.JiuDaoHang_Presenter;
 import com.example.myjd.utils.Logger;
-import com.example.myjd.utils.ToastUtils;
 import com.example.myjd.view.R;
 import com.example.myjd.view.activity.GoodsListActivity;
 import com.example.myjd.widget.ClearEditText;
@@ -62,7 +61,15 @@ public class ClassifyFragment extends BaseFragment implements JiuDaoHang_Contrac
         adapter_left.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                ToastUtils.showToast(getActivity(),"点击了"+goodsList.get(position).getName());
+                Logger.i(goodsList.get(position).isIschecked()+"------0");
+                for (int j = 0; j <goodsList.size() ; j++) {
+                    if (position==j){
+                        goodsList.get(j).setIschecked(true);
+                    }else {
+                        goodsList.get(j).setIschecked(false);
+                    }
+                }
+                adapter_left.notifyDataSetChanged();
                 dataList.clear();
                 presenter.setData();
                 setLeftadapter();
@@ -87,13 +94,13 @@ public class ClassifyFragment extends BaseFragment implements JiuDaoHang_Contrac
     protected void setAdapter() {
         adapter_left = new MyCfyRecyclerAdapter_Left(R.layout.item_goodslist, goodsList);
         mRecyclerType.setAdapter(adapter_left);
-        setLeftadapter();
-    }
-
-    private void setLeftadapter() {
         dataList.add(new MutilRecyclerBean_GoodsXaingQing(null,MutilRecyclerBean_GoodsXaingQing.TYPE_PIC));
         adapter_right = new MyCfyecyclerViewAdapter_Right(dataList);
         mRecyclerXiangqing.setAdapter(adapter_right);
+    }
+
+    private void setLeftadapter() {
+        adapter_right.notifyDataSetChanged();
     }
 
     @Override

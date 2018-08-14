@@ -1,6 +1,7 @@
 package com.example.myjd.view.fragment;
 
 import android.app.Activity;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,23 +12,23 @@ import android.widget.TextView;
 import com.example.myjd.adapter.HomeMutiplterRecyclerViewAdapter;
 import com.example.myjd.base.BaseFragment;
 import com.example.myjd.bean.HomeBean;
+import com.example.myjd.bean.JGGDaoHangBean;
 import com.example.myjd.bean.MutilRecyclerBean;
-import com.example.myjd.mvp.contract.Banner_Contract;
-import com.example.myjd.mvp.presenter.Banner_Presenter;
+import com.example.myjd.mvp.contract.HomePage_Contract;
+import com.example.myjd.mvp.presenter.HomePage_Presenter;
+import com.example.myjd.mvp.presenter.JiuDaoHang_Presenter;
 import com.example.myjd.utils.Logger;
 import com.example.myjd.view.R;
-import com.example.myjd.widget.ClearEditText;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class HomeFragment extends BaseFragment implements Banner_Contract.View {
+public class HomeFragment extends BaseFragment implements HomePage_Contract.View {
     Activity mActivity;
-    private Banner_Contract.Presenter presenter;
+    private HomePage_Contract.Presenter presenter;
     private List<MutilRecyclerBean> recyclerBeanList = new ArrayList<>();
     private android.support.design.widget.AppBarLayout mAppBar;
     private ImageView mToolbarIvSaoyisao;
@@ -37,6 +38,9 @@ public class HomeFragment extends BaseFragment implements Banner_Contract.View {
     private ImageView mToolbarIvMsg;
     private RecyclerView mRecyview;
     private HomeMutiplterRecyclerViewAdapter adapter;
+    private JiuDaoHang_Presenter presenter1;
+    JGGDaoHangBean jggDaoHangBean1;
+    HomeBean homeBean1;
 
     @Override
     protected void otherOpration() {
@@ -56,8 +60,14 @@ public class HomeFragment extends BaseFragment implements Banner_Contract.View {
 
     @Override
     protected void initData() {
-        presenter = new Banner_Presenter(this);
+        presenter = new HomePage_Presenter(this);
         presenter.setData();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                presenter.setData1();
+            }
+        },200);
     }
 
     @Override
@@ -72,7 +82,6 @@ public class HomeFragment extends BaseFragment implements Banner_Contract.View {
     }
 
 
-
     @Override
     public void onFaild(String errorMsg) {
         Logger.e(errorMsg);
@@ -81,7 +90,20 @@ public class HomeFragment extends BaseFragment implements Banner_Contract.View {
     @Override
     public void onSuccessful(HomeBean homeBean) {
         Logger.i(homeBean.getMsg());
-        recyclerBeanList.add(new MutilRecyclerBean(homeBean,MutilRecyclerBean.TYPE_BANNER));
+        homeBean1 = homeBean;
+        recyclerBeanList.add(new MutilRecyclerBean(homeBean1,null,MutilRecyclerBean.TYPE_BANNER));
+        adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onError(String errorMsg) {
+        Logger.e(errorMsg);
+    }
+
+    @Override
+    public void onSuccess(JGGDaoHangBean jggDaoHangBean) {
+        Logger.i(jggDaoHangBean.getMsg());
+        recyclerBeanList.add(new MutilRecyclerBean(homeBean1,jggDaoHangBean,MutilRecyclerBean.TYPE_CAIDAN));
         adapter.notifyDataSetChanged();
     }
 

@@ -1,7 +1,9 @@
 package com.example.myjd.adapter;
 
+import android.graphics.Paint;
 import android.support.annotation.Nullable;
 import android.view.View;
+import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -29,6 +31,8 @@ public class GlistRecyclerAdapter extends BaseQuickAdapter<GoodsListBean.DataBea
                 .setText(R.id.item_gl_tv_title,item.getTitle())
                 .setText(R.id.item_gl_tv_time,item.getCreatetime());
         SimpleDraweeView sdv = helper.getView(R.id.item_gl_sdv);
+        TextView textView = helper.getView(R.id.item_gl_bargin_price);
+        textView.setPaintFlags(textView.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
         Phoenix.with(sdv).load(item.getImages().split("[|]")[0]);
     }
 }

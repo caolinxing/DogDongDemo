@@ -53,10 +53,28 @@ public class JGGDaoHangBean {
          */
 
         private int cid;
+        private boolean ischecked;
         private String createtime;
         private String icon;
         private int ishome;
+        private int mindex;
         private String name;
+
+        public int getMindex() {
+            return mindex;
+        }
+
+        public void setMindex(int mindex) {
+            this.mindex = mindex;
+        }
+
+        public boolean isIschecked() {
+            return ischecked;
+        }
+
+        public void setIschecked(boolean ischecked) {
+            this.ischecked = ischecked;
+        }
 
         public int getCid() {
             return cid;

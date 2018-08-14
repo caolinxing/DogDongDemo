@@ -15,15 +15,21 @@ public class MutilRecyclerBean implements MultiItemEntity {
     public static final int TYPE_GOODSlIST = 3;
 
     private HomeBean homeBean;
+    private JGGDaoHangBean jggBean;
     private int itemType;
 
-    public MutilRecyclerBean(HomeBean homeBean, int itemType) {
+    public MutilRecyclerBean(HomeBean homeBean,JGGDaoHangBean jggBean, int itemType) {
         this.homeBean = homeBean;
         this.itemType = itemType;
+        this.jggBean = jggBean;
     }
 
     public HomeBean getHomeBean() {
         return homeBean;
+    }
+
+    public JGGDaoHangBean getJggBean() {
+        return jggBean;
     }
 
     @Override
