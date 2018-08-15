@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="5dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical">
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/item_tjsdv"
+        app:roundedCornerRadius="10dp"
+        android:layout_width="150dp"
+        android:layout_height="150dp" />
+    <TextView
+        android:id="@+id/item_tjtv_title"
+        android:layout_below="@id/item_tjsdv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:text="title"
+        android:lines="2"
+        android:ellipsize="end"/>
+    <RelativeLayout
+        android:layout_below="@id/item_tjtv_title"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/item_tjtv_price"
+            android:layout_alignParentLeft="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:text="178.00"
+            android:textColor="@color/text_price_red"/>
+        <TextView
+            android:id="@+id/tv_kanxiangsi"
+            android:layout_width="60dp"
+            android:gravity="center"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/tuoyuan_shape"
+            android:text="看相似"/>
+    </RelativeLayout>
+</RelativeLayout>

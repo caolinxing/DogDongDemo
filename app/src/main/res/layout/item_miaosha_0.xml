@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="260dp"
+    android:gravity="center"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <com.gongwen.marqueen.SimpleMarqueeView
+        android:id="@+id/simpleMarqueeView"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:flipInterval="2500"
+        android:inAnimation="@anim/in_bottom"
+        android:outAnimation="@null"
+        app:marqueeAnimDuration="2000"
+        app:smvTextColor="@color/red"
+        app:smvTextEllipsize="end"
+        app:smvTextGravity="center_vertical"
+        app:smvTextSingleLine="true"
+        app:smvTextSize="15sp" />
+    <android.support.v7.widget.RecyclerView
+        android:layout_below="@id/simpleMarqueeView"
+        android:id="@+id/miaosha_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="230dp"/>
+</RelativeLayout>
