@@ -2,11 +2,11 @@ package com.example.myjd.adapter;
 
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
@@ -43,6 +43,8 @@ public class HomeMutiplterRecyclerViewAdapter extends BaseMultiItemQuickAdapter<
         addItemType(MutilRecyclerBean.TYPE_BANNER, R.layout.item_banner);
         addItemType(MutilRecyclerBean.TYPE_CAIDAN, R.layout.item_ciadan);
         addItemType(MutilRecyclerBean.TYPE_MIAOSHA, R.layout.item_miaosha_0);
+        addItemType(MutilRecyclerBean.TYPE_TUIJIAN1, R.layout.item_tuijian0);
+        addItemType(MutilRecyclerBean.TYPE_TUIJIAN2, R.layout.item_tuijian_0);
     }
 
     @Override
@@ -103,6 +105,18 @@ public class HomeMutiplterRecyclerViewAdapter extends BaseMultiItemQuickAdapter<
                 recycler.addItemDecoration(new SpacesItemDecoration(5));
                 MyMiaoShaAdapter adapter = new MyMiaoShaAdapter(mContext, item.getHomeBean().getMiaosha().getList());
                 recycler.setAdapter(adapter);
+                break;
+            case MutilRecyclerBean.TYPE_TUIJIAN1:
+                RecyclerView tRecycler = helper.getView(R.id.tuijian_recycler_view);
+                tRecycler.setLayoutManager(new GridLayoutManager(mContext,2));
+                MyTuiJian0Adapter adapter1 = new MyTuiJian0Adapter(mContext, item.getHomeBean().getTuijian().getList());
+                tRecycler.setAdapter(adapter1);
+                break;
+            case MutilRecyclerBean.TYPE_TUIJIAN2:
+                RecyclerView tRecycler1 = helper.getView(R.id.TJ_recycler_view);
+                tRecycler1.setLayoutManager(new GridLayoutManager(mContext,2));
+                MyTuiJian2Adapter adapter2 = new MyTuiJian2Adapter(mContext, item.getHomeBean().getTuijian().getList());
+                tRecycler1.setAdapter(adapter2);
                 break;
         }
     }

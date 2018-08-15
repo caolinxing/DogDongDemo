@@ -67,7 +67,7 @@ public class HomeFragment extends BaseFragment implements HomePage_Contract.View
             public void run() {
                 presenter.setData1();
             }
-        },200);
+        },00);
     }
 
     @Override
@@ -91,7 +91,10 @@ public class HomeFragment extends BaseFragment implements HomePage_Contract.View
     public void onSuccessful(HomeBean homeBean) {
         Logger.i(homeBean.getMsg());
         homeBean1 = homeBean;
-        recyclerBeanList.add(new MutilRecyclerBean(homeBean1,null,MutilRecyclerBean.TYPE_BANNER));
+        recyclerBeanList.add(0,new MutilRecyclerBean(homeBean1,null,MutilRecyclerBean.TYPE_BANNER));
+        recyclerBeanList.add(2,new MutilRecyclerBean(homeBean1,null,MutilRecyclerBean.TYPE_MIAOSHA));
+        recyclerBeanList.add(3,new MutilRecyclerBean(homeBean1,null,MutilRecyclerBean.TYPE_TUIJIAN1));
+        recyclerBeanList.add(4,new MutilRecyclerBean(homeBean1,null,MutilRecyclerBean.TYPE_TUIJIAN2));
         adapter.notifyDataSetChanged();
     }
 
@@ -104,7 +107,6 @@ public class HomeFragment extends BaseFragment implements HomePage_Contract.View
     public void onSuccess(JGGDaoHangBean jggDaoHangBean) {
         Logger.i(jggDaoHangBean.getMsg());
         recyclerBeanList.add(new MutilRecyclerBean(homeBean1,jggDaoHangBean,MutilRecyclerBean.TYPE_CAIDAN));
-        recyclerBeanList.add(new MutilRecyclerBean(homeBean1,null,MutilRecyclerBean.TYPE_MIAOSHA));
         adapter.notifyDataSetChanged();
     }
 
