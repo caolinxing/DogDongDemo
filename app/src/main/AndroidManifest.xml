@@ -31,19 +31,18 @@
             android:launchMode="singleTop"
             android:screenOrientation="portrait">
 
-            <!--
-            <intent-filter>
+            <!--<intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-            -->
+            </intent-filter>-->
         </activity>
         <activity
             android:name=".activity.RegActivitity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
-        <activity android:name=".activity.GoodsListActivity" />
+        <activity android:name=".activity.GoodsListActivity"
+            android:launchMode="singleTask"/>
         <activity android:name=".activity.GoodsXiangQingActivity"></activity>
     </application>
 

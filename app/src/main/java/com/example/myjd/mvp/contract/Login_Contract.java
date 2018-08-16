@@ -7,7 +7,7 @@ import com.example.myjd.bean.UserInfo;
 
 public interface Login_Contract {
     interface Model {
-        void login(UserInfo userInfo, OnHttpCallBack<LoginBean> callBack);//登录
+        void login(Context context,UserInfo userInfo, OnHttpCallBack<LoginBean> callBack);//登录
 
         void saveUserInfo(Context context, UserInfo user,String token);//登录成功就保存用户信息
     }

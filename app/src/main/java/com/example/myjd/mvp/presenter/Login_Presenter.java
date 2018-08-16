@@ -19,7 +19,7 @@ public class Login_Presenter implements Login_Contract.Presenter {
     public void login() {
         mLoginView.showProgress(); //显示登录进度条
         final int i = 0;
-        mLoginModel.login(mLoginView.getUserLoginInfo(), new OnHttpCallBack<LoginBean>() {
+        mLoginModel.login(mLoginView.getCurContext(),mLoginView.getUserLoginInfo(), new OnHttpCallBack<LoginBean>() {
             @Override
             public void onSuccessful(LoginBean tokenResult) {
                 if (tokenResult.getMsg().equals("登录成功")){

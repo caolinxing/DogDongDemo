@@ -8,9 +8,27 @@ public class UserInfo {
     private String pwd;//密码
     private String address;//地址
     private String phone;//手机号
+    private String uid;//手机号
+    private String token;//手机号
 
 
     public UserInfo() {
+    }
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 
     public UserInfo(String userName, String pwd) {

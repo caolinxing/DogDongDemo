@@ -18,7 +18,7 @@ import rx.schedulers.Schedulers;
 public class Login_Model implements Login_Contract.Model {
 
     @Override
-    public void login(UserInfo userInfo, final OnHttpCallBack<LoginBean> callBack) {
+    public void login(final Context context, final UserInfo userInfo, final OnHttpCallBack<LoginBean> callBack) {
         //登录的网络请求
         RetrofitUtils.newInstence("https://www.zhaoapi.cn/")//实例化Retrofit对象
                 .create(APIService.class)//创建Rxjava---->LoginService对象
@@ -41,6 +41,16 @@ public class Login_Model implements Login_Contract.Model {
 
                     @Override
                     public void onNext(LoginBean loginBean) {
+                        KLog.i("开始保存用户信息" + loginBean.toString());
+                        context.getSharedPreferences("userinfo", Context.MODE_PRIVATE).edit()
+                                .putString("userName", userInfo.getUserName())
+                                .putString("pwd", userInfo.getPwd())
+                                .putString("address", null)
+                                .putString("phone", loginBean.getData().getUsername())
+                                .putString("token",loginBean.getData().getToken() )
+                                .putString("uid", loginBean.getData().getUid()+"")
+                                .commit();
+                        KLog.i("开始保存用户信息" + loginBean.toString());
                         callBack.onSuccessful(loginBean);
                     }//网络(登录)请求回调
 
@@ -49,14 +59,8 @@ public class Login_Model implements Login_Contract.Model {
 
     @Override
     public void saveUserInfo(Context context, UserInfo user, String token) {
-        KLog.e("开始保存用户信息" + user.toString());
-        context.getSharedPreferences("userinfo", Context.MODE_PRIVATE).edit()
-                .putString("userName", user.getUserName())
-                .putString("pwd", user.getPwd())
-                .putString("address", user.getAddress())
-                .putString("phone", user.getPhone())
-                .putString("token", token)
-                .commit();
+
     }
+
 
 }

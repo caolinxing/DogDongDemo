@@ -1,11 +1,14 @@
 package com.example.myjd.apiserver;
 
 
+import com.example.myjd.bean.AddCartBean;
+import com.example.myjd.bean.CartBean;
 import com.example.myjd.bean.GoodsListBean;
 import com.example.myjd.bean.HomeBean;
 import com.example.myjd.bean.JGGDaoHangBean;
 import com.example.myjd.bean.LoginBean;
 import com.example.myjd.bean.RegisterBean;
+import com.example.myjd.bean.SearchBean;
 
 import retrofit2.http.Field;
 import retrofit2.http.GET;
@@ -52,5 +55,26 @@ public interface APIService {
      */
     @GET("product/getProducts")
     Observable<GoodsListBean> goodsList(@Query("pscid")String pscid);
+
+    /**
+     * 搜索
+     * @修改人和其它信息:
+     */
+    @GET("product/searchProducts")
+    Observable<SearchBean> rxSearch(@Query("keywords")String keywords,@Query("page")int page,@Query("sort")int sort);
+
+    /**
+     *  加入购物车
+     * @修改人和其它信息:
+     */
+    @GET("product/addCart")
+    Observable<AddCartBean> rxAddCart(@Query("Uid")String uid, @Query("pid")String pid);
+
+    /**
+     * 查询购物车
+     * @修改人和其它信息:
+     */
+    @GET("product/getCarts")
+    Observable<CartBean> rxQueryCart(@Query("uid")String uid);
 
 }
