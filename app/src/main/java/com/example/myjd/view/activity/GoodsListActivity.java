@@ -1,7 +1,7 @@
 package com.example.myjd.view.activity;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -16,6 +16,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.myjd.adapter.GlistRecyclerAdapter;
 import com.example.myjd.adapter.SearchRecyclerAdapter;
 import com.example.myjd.base.BaseActivity;
+import com.example.myjd.bean.EventBusBean;
 import com.example.myjd.bean.GoodsListBean;
 import com.example.myjd.bean.SearchBean;
 import com.example.myjd.mvp.contract.GoodsList_Contract;
@@ -25,6 +26,8 @@ import com.example.myjd.mvp.presenter.Search_Presenter;
 import com.example.myjd.utils.Logger;
 import com.example.myjd.utils.ToastUtils;
 import com.example.myjd.view.R;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,6 +68,8 @@ public class GoodsListActivity extends BaseActivity implements GoodsList_Contrac
     int sort_xiaoLiang = 1;
     int sort_price = 2;
     private SearchRecyclerAdapter adapter1;
+    SearchBean searchBean1 ;
+    private String uid;
 
     @Override
     protected int bindView() {
@@ -77,6 +82,12 @@ public class GoodsListActivity extends BaseActivity implements GoodsList_Contrac
     }
     @Override
     protected void initData() {
+        /**
+         * sp:uid
+         */
+        SharedPreferences userInfo = getSharedPreferences("userinfo", MODE_PRIVATE);
+        uid = userInfo.getString("uid", "");
+        Logger.i("---------0-------uid:"+uid);
         glistRecycler.setLayoutManager(new LinearLayoutManager(this));
         adapter = new GlistRecyclerAdapter(R.layout.item_goods, goodsList);
         glistRecycler.setAdapter(adapter);
@@ -93,13 +104,8 @@ public class GoodsListActivity extends BaseActivity implements GoodsList_Contrac
 
     @Override
     protected void setClickListener() {
-        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-
-            }
-        });
     }
+
 
     @Override
     public void onFaild(String errorMsg) {
@@ -108,6 +114,7 @@ public class GoodsListActivity extends BaseActivity implements GoodsList_Contrac
 
     @Override
     public void onSuccessful(SearchBean searchBean) {
+        searchBean1 = searchBean;
         searchList.addAll(searchBean.getData());
         adapter1.notifyDataSetChanged();
     }
@@ -145,6 +152,13 @@ public class GoodsListActivity extends BaseActivity implements GoodsList_Contrac
                 adapter1 = new SearchRecyclerAdapter(R.layout.item_goods, searchList);
                 glistRecycler.setAdapter(adapter1);
                 presenter1.setData(toolbarEdiSearch.getText().toString(), 0, sort_moRen);
+                adapter1.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                        EventBus.getDefault().postSticky(new EventBusBean(uid,searchList.get(position).getPid(),searchList.get(position).getDetailUrl(),null,null,null));
+                        startActivity(new Intent(GoodsListActivity.this,GoodsXiangQingActivity.class));
+                    }
+                });
                 break;
             case R.id.toolbar_iv_saoyisao:
                 break;

@@ -9,6 +9,7 @@ import com.example.myjd.bean.JGGDaoHangBean;
 import com.example.myjd.bean.LoginBean;
 import com.example.myjd.bean.RegisterBean;
 import com.example.myjd.bean.SearchBean;
+import com.example.myjd.bean.UpdataCartBean;
 
 import retrofit2.http.Field;
 import retrofit2.http.GET;
@@ -76,5 +77,12 @@ public interface APIService {
      */
     @GET("product/getCarts")
     Observable<CartBean> rxQueryCart(@Query("uid")String uid);
+
+    /**
+     * 更新购物车
+     * @修改人和其它信息:
+     */
+    @GET("product/updateCarts")
+    Observable<UpdataCartBean> rxUpdataCart(@Query("uid")String uid,@Query("sellerid")String sellerid,@Query("pid")String pid,@Query("selected") String selected,@Query("num") String num);
 
 }
