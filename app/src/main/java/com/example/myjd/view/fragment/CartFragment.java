@@ -2,13 +2,13 @@ package com.example.myjd.view.fragment;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
+import android.text.TextUtils;
 import android.view.View;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
@@ -17,7 +17,6 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.myjd.adapter.CartMutiAdapter;
 import com.example.myjd.base.BaseFragment;
 import com.example.myjd.bean.CartBean;
-import com.example.myjd.bean.GoodsListBean;
 import com.example.myjd.bean.QueryCartMutilplterBean;
 import com.example.myjd.bean.UpdataCartBean;
 import com.example.myjd.mvp.contract.QueryCart_Contract;
@@ -27,6 +26,7 @@ import com.example.myjd.mvp.presenter.UpdataCart_Presenter;
 import com.example.myjd.utils.Logger;
 import com.example.myjd.utils.ToastUtils;
 import com.example.myjd.view.R;
+import com.example.myjd.view.activity.LoginActivity;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -41,14 +41,10 @@ public class CartFragment extends BaseFragment implements QueryCart_Contract.Vie
 
     private android.support.v7.widget.RecyclerView mGoodsRecyclerView;
     private android.widget.CheckBox mGoodsCbCheckedAll;
-    private android.widget.TextView mGoodsTvSelect;
-    private android.widget.TextView mGoodsAllGoodsNum;
     private android.widget.TextView mGoodsAllPrice;
-    private android.widget.Button mGoodsBtnCount;
     private QueryCart_Contract.Presenter presenter;
     private List<QueryCartMutilplterBean> cartList;
     private List<CartBean.DataBean> CBCartList = new ArrayList<>();
-    String uid = "123";
     private CartMutiAdapter adapter;
     private UpdataCart_Presenter presenter_up;
     private String uid1;
@@ -56,6 +52,8 @@ public class CartFragment extends BaseFragment implements QueryCart_Contract.Vie
     private DecimalFormat df = new DecimalFormat("0.00");//保留两位小数
     boolean Checked ;
     private int selected1;
+    private boolean b;
+    private TextView mCartTvTishi;
 
     public CartFragment() {
     }
@@ -83,14 +81,17 @@ public class CartFragment extends BaseFragment implements QueryCart_Contract.Vie
                 if (isChecked){
                     Logger.i("isChecked:"+isChecked+"数据大小："+CBCartList.size());
                     Checked = isChecked;
-                    selected1 = 1;
-                    presenter.setData(uid);
+
+                    presenter.setData(uid1);
                 }else if (!isChecked){
                     Logger.i("isChecked:"+isChecked+"数据大小："+CBCartList.size());
                     Checked = isChecked;
-                    selected1 = 0;
-                    presenter.setData(uid);
+                    presenter.setData(uid1);
                 }
+                /**
+                 * 点击全选标记
+                 */
+                b = true;
                 adapter.notifyDataSetChanged();
             }
         });
@@ -103,15 +104,26 @@ public class CartFragment extends BaseFragment implements QueryCart_Contract.Vie
 
     @Override
     protected void initData() {
-        cartList = new ArrayList<>();
-        presenter = new QueryCart_Presenter(this);
-        presenter_up = new UpdataCart_Presenter(this);
-        presenter.setData(uid);
         /**
          * 从sp存储取出uid
          */
-        SharedPreferences userInfo = getActivity().getSharedPreferences("userInfo", Context.MODE_PRIVATE);
+        SharedPreferences userInfo = getActivity().getSharedPreferences("userinfo", Context.MODE_PRIVATE);
         uid1 = userInfo.getString("uid","");
+        if (!TextUtils.isEmpty(uid1)){
+            cartList = new ArrayList<>();
+            presenter = new QueryCart_Presenter(this);
+            presenter_up = new UpdataCart_Presenter(this);
+            presenter.setData(uid1);
+        }else {
+            mCartTvTishi.setVisibility(View.VISIBLE);
+        }
+
+        mCartTvTishi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), LoginActivity.class));
+            }
+        });
 
     }
 
@@ -123,11 +135,9 @@ public class CartFragment extends BaseFragment implements QueryCart_Contract.Vie
     protected void findView(View v) {
         mGoodsRecyclerView = (RecyclerView)v.findViewById(R.id.goods_recyclerView);
         mGoodsCbCheckedAll = (CheckBox) v.findViewById(R.id.goods_cb_checkedAll);
-        mGoodsTvSelect = (TextView) v.findViewById(R.id.goods_tv_select);
-        mGoodsAllGoodsNum = (TextView) v.findViewById(R.id.goods_allGoodsNum);
         mGoodsAllPrice = (TextView) v.findViewById(R.id.goods_allPrice);
-        mGoodsBtnCount = (Button) v.findViewById(R.id.goods_btn_count);
         mGoodsRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mCartTvTishi = (TextView) v.findViewById(R.id.cart_tv_tishi);
     }
 
     @Override
@@ -154,7 +164,7 @@ public class CartFragment extends BaseFragment implements QueryCart_Contract.Vie
     public void onSuccessful1(UpdataCartBean cartBean) {
         Logger.i("update:"+cartBean.getMsg());
         if (cartBean.getMsg().equals("success")){
-            presenter.setData(uid);
+            presenter.setData(uid1);
         }
     }
 
@@ -166,14 +176,18 @@ public class CartFragment extends BaseFragment implements QueryCart_Contract.Vie
          * allprice :商品总价
          */
         float allPrice = 0;
-        boolean a = false;
         for (int i = 1; i <cartBean.getData().size() ; i++) {
             cartList.add(new QueryCartMutilplterBean(null,cartBean.getData().get(i),QueryCartMutilplterBean.TYPE_SHOP_NAME));
             List<CartBean.DataBean.ListBean> listBeans = cartBean.getData().get(i).getList();
             for (int j = 0; j <listBeans.size() ; j++) {
-                if (Checked&&selected1==1){
+                /**
+                 * 判断是否选中全选
+                 * 点击全选标记 ：b :true :点击了全选，false:没点击全选
+                 *
+                 */
+                if (Checked&&b){
                     listBeans.get(j).setSelected("1");
-                }else if (!Checked&&selected1==1){
+                }else if (!Checked&&b){
                     listBeans.get(j).setSelected("0");
                 }
                 cartList.add(new QueryCartMutilplterBean(listBeans.get(j),null,QueryCartMutilplterBean.TYPE_GOODS_XIANGQING));
@@ -187,6 +201,10 @@ public class CartFragment extends BaseFragment implements QueryCart_Contract.Vie
                 }
             }
         }
+        /**
+         * 执行完循环重置全选标记
+         */
+        b=false;
         adapter = new CartMutiAdapter(cartList);
         mGoodsRecyclerView.setAdapter(adapter);
         adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
@@ -220,7 +238,7 @@ public class CartFragment extends BaseFragment implements QueryCart_Contract.Vie
                         int num0 = Integer.parseInt(cartList.get(position).getCartListBean().getNum());
                         String sellerid0 = cartList.get(position).getCartListBean().getSellerid();
                         String pid0 = cartList.get(position).getCartListBean().getPid();
-                        presenter_up.setData(uid,sellerid0,pid0,selected1, String.valueOf(num0));
+                        presenter_up.setData(uid1,sellerid0,pid0,selected1, String.valueOf(num0));
                         adapter.notifyItemChanged(position);
                         break;
                     /**
@@ -235,7 +253,7 @@ public class CartFragment extends BaseFragment implements QueryCart_Contract.Vie
                         num++;
                         String sellerid = cartList.get(position).getCartListBean().getSellerid();
                         String pid = cartList.get(position).getCartListBean().getPid();
-                        presenter_up.setData(uid,sellerid,pid, CartFragment.this.selected, String.valueOf(num));
+                        presenter_up.setData(uid1,sellerid,pid, CartFragment.this.selected, String.valueOf(num));
                         adapter.notifyItemChanged(position);
                         break;
                     /**
@@ -254,14 +272,16 @@ public class CartFragment extends BaseFragment implements QueryCart_Contract.Vie
                             cartList.get(position).getCartListBean().setSelected("1");
                             String sellerid1 = cartList.get(position).getCartListBean().getSellerid();
                             String pid1 = cartList.get(position).getCartListBean().getPid();
-                            presenter_up.setData(uid,sellerid1,pid1, CartFragment.this.selected, String.valueOf(num1));
+                            presenter_up.setData(uid1,sellerid1,pid1, CartFragment.this.selected, String.valueOf(num1));
                             adapter.notifyItemChanged(position);
                         }
                         break;
                 }
             }
         });
-        //格式化价格数据为0.00(保留两位)
+        /**
+         * 格式化价格数据为0.00(保留两位)
+         */
         String GoodsAllPrice = df.format(allPrice);
         mGoodsAllPrice.setText("￥"+GoodsAllPrice);
     }

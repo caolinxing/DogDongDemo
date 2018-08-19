@@ -1,5 +1,6 @@
 package com.example.myjd.view.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -83,7 +84,8 @@ public class GoodsXiangQingActivity extends AppCompatActivity implements AddCart
         if (cartBean.getMsg().equals("加购成功")){
             ToastUtils.showToast(GoodsXiangQingActivity.this,"加购成功");
         }else {
-            ToastUtils.showToast(GoodsXiangQingActivity.this,"吖，失败了"+cartBean.getMsg());
+            ToastUtils.showToast(GoodsXiangQingActivity.this,"吖，您还未登录,正在为你跳转登入界面"+cartBean.getMsg());
+            startActivity(new Intent(GoodsXiangQingActivity.this, LoginActivity.class));
         }
     }
 }

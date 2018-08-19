@@ -4,7 +4,17 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.example.myjd.view.fragment.CartFragment">
-
+    <TextView
+        android:id="@+id/cart_tv_tishi"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textSize="18sp"
+        android:paddingTop="50dp"
+        android:visibility="gone"
+        android:clickable="true"
+        android:textColor="@color/new_green"
+        android:gravity="center_horizontal"
+        android:text="@string/cart_tishi"/>
     <android.support.v7.widget.RecyclerView
         android:id="@+id/goods_recyclerView"
         android:layout_width="match_parent"

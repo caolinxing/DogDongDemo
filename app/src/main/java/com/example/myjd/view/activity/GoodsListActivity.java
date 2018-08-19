@@ -91,6 +91,13 @@ public class GoodsListActivity extends BaseActivity implements GoodsList_Contrac
         glistRecycler.setLayoutManager(new LinearLayoutManager(this));
         adapter = new GlistRecyclerAdapter(R.layout.item_goods, goodsList);
         glistRecycler.setAdapter(adapter);
+        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                EventBus.getDefault().postSticky(new EventBusBean(uid,goodsList.get(position).getPid(),goodsList.get(position).getDetailUrl(),null,null,null));
+                startActivity(new Intent(GoodsListActivity.this,GoodsXiangQingActivity.class));
+            }
+        });
         presenter = new GoodsList_Presenter(this);
         presenter1 = new Search_Presenter(this);
         Intent intent = getIntent();

@@ -14,4 +14,14 @@
     <string name="tv_write_uname">用户名/邮箱/手机号</string>
     <string name="tv_xieyi_1">登入即代表您已同意</string>
     <string name="tv_xieyi_2">《京东隐私政策》</string>
+    <string name="mine1">0</string>
+    <string name="mine2">0.00</string>
+    <string name="jingdou">京豆</string>
+    <string name="youhui">优惠卷</string>
+    <string name="baitiao">白条</string>
+    <string name="jinku">京东小金库</string>
+    <string name="guanzhu">店铺关注</string>
+    <string name="shoucang">内容收藏</string>
+    <string name="jilu">浏览记录</string>
+    <string name="cart_tishi">天啦！你还未登录，快点我去登录吧~</string>
 </resources>
