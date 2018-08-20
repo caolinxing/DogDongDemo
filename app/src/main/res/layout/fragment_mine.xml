@@ -5,82 +5,44 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/bfu"
     android:orientation="vertical">
-    <LinearLayout
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="2"
-        android:id="@+id/lin_layout"
-        android:gravity="center_vertical"
-        android:orientation="vertical"
-        android:background="@drawable/bfu">
+        android:layout_height="match_parent"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:background="@drawable/bfu"
+        android:orientation="vertical">
         <LinearLayout
             android:layout_width="match_parent"
-            android:background="@drawable/bfu"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:id="@+id/lin_layout"
             android:gravity="center_vertical"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <com.facebook.drawee.view.SimpleDraweeView
-                android:id="@+id/mine_iv_touxiang"
-                android:layout_marginTop="3dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginBottom="5dp"
-                android:layout_width="55dp"
-                android:layout_height="55dp"
-                app:placeholderImage="@drawable/dogjpg"/>
-            <TextView
-                android:id="@+id/mine_tv_uname"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginTop="5dp"
-                android:gravity="center_vertical"
-                android:textSize="20sp"
-                android:text="login_zhuce"
-                android:layout_marginLeft="20dp"
-                android:layout_marginBottom="10dp" />
-        </LinearLayout>
-    </LinearLayout>
-    <include layout="@layout/xiantiao_layout"
-        android:layout_height="10dp"
-        android:layout_width="match_parent"/>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:background="#DADADA"
-        android:padding="5dp"
-        android:orientation="vertical"
-        android:layout_weight="2">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="horizontal"
-            android:background="@drawable/item_tuoyuan_shape">
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/mine_recycler_1"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"/>
+            android:orientation="vertical"
+            android:background="@drawable/bfu">
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_weight="5"
-                android:gravity="center_horizontal"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-                <ImageView
-                    android:layout_marginTop="12dp"
-                    android:id="@+id/mine_iv_dingdan"
-                    android:layout_width="60dp"
-                    android:layout_height="45dp"
-                    android:layout_weight="1"
-                    android:padding="5dp"
-                    android:src="@drawable/dingdan"/>
+                android:background="@drawable/bfu"
+                android:gravity="center_vertical"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:id="@+id/mine_iv_touxiang"
+                    android:layout_marginTop="3dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_width="55dp"
+                    android:layout_height="55dp"
+                    app:placeholderImage="@drawable/dogjpg"/>
                 <TextView
-                    android:layout_width="match_parent"
+                    android:id="@+id/mine_tv_uname"
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_weight="3"
-                    android:textSize="10sp"
-                    android:gravity="center"
-                    android:text="我的订单"/>
+                    android:layout_marginTop="5dp"
+                    android:gravity="center_vertical"
+                    android:textSize="20sp"
+                    android:text="login_zhuce"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginBottom="10dp" />
             </LinearLayout>
         </LinearLayout>
         <include layout="@layout/xiantiao_layout"
@@ -88,72 +50,119 @@
             android:layout_width="match_parent"/>
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/item_tuoyuan_shape">
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/mine_recycler_2"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"/>
+            android:layout_height="0dp"
+            android:background="#DADADA"
+            android:padding="5dp"
+            android:orientation="vertical"
+            android:layout_weight="2">
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_weight="5"
-                android:gravity="center"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
-                <ImageView
-                    android:layout_marginTop="12dp"
-                    android:id="@+id/mine_iv_qianbao"
-                    android:layout_width="wrap_content"
-                    android:layout_height="45dp"
-                    android:layout_marginLeft="6dp"
-                    android:layout_weight="1"
-                    android:padding="5dp"
-                    android:src="@drawable/qianbao"/>
-                <TextView
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:background="@drawable/item_tuoyuan_shape">
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/mine_recycler_1"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="3"
-                    android:textSize="10sp"
+                    android:layout_weight="1"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_weight="5"
+                    android:gravity="center_horizontal"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                    <ImageView
+                        android:layout_marginTop="12dp"
+                        android:id="@+id/mine_iv_dingdan"
+                        android:layout_width="60dp"
+                        android:layout_height="45dp"
+                        android:layout_weight="1"
+                        android:padding="5dp"
+                        android:src="@drawable/dingdan"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="3"
+                        android:textSize="10sp"
+                        android:gravity="center"
+                        android:text="我的订单"/>
+                </LinearLayout>
+            </LinearLayout>
+            <include layout="@layout/xiantiao_layout"
+                android:layout_height="10dp"
+                android:layout_width="match_parent"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/item_tuoyuan_shape">
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/mine_recycler_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_weight="5"
                     android:gravity="center"
-                    android:text="我的钱包"/>
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                    <ImageView
+                        android:layout_marginTop="12dp"
+                        android:id="@+id/mine_iv_qianbao"
+                        android:layout_width="wrap_content"
+                        android:layout_height="45dp"
+                        android:layout_marginLeft="6dp"
+                        android:layout_weight="1"
+                        android:padding="5dp"
+                        android:src="@drawable/qianbao"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="3"
+                        android:textSize="10sp"
+                        android:gravity="center"
+                        android:text="我的钱包"/>
+                </LinearLayout>
             </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
-    <include layout="@layout/xiantiao_layout"
-        android:layout_height="10dp"
-        android:layout_width="match_parent"/>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:background="#DADADA"
-        android:padding="5dp"
-        android:orientation="vertical"
-        android:layout_weight="2">
+        <include layout="@layout/xiantiao_layout"
+            android:layout_height="10dp"
+            android:layout_width="match_parent"/>
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/white">
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/mine_recycler_3"
+            android:layout_height="0dp"
+            android:background="#DADADA"
+            android:padding="5dp"
+            android:orientation="vertical"
+            android:layout_weight="2">
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent"
+                android:background="@color/white">
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/mine_recycler_3"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:orientation="vertical">
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:background="@drawable/bfv"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="☆ 休 闲 时 刻 ☆"
+                android:textColor="@color/new_green"
+                android:textSize="17sp"/>
         </LinearLayout>
     </LinearLayout>
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:background="@drawable/bfv"/>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="☆ 为 你 推 荐 ☆"
-        android:textColor="@color/orange_color"
-        android:textSize="17sp"/>
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/mine_TJ_recycler_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
 </LinearLayout>

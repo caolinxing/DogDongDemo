@@ -8,6 +8,7 @@ import com.example.myjd.bean.HomeBean;
 import com.example.myjd.bean.JGGDaoHangBean;
 import com.example.myjd.bean.LoginBean;
 import com.example.myjd.bean.RegisterBean;
+import com.example.myjd.bean.RelaxBean;
 import com.example.myjd.bean.SearchBean;
 import com.example.myjd.bean.UpdataCartBean;
 
@@ -84,5 +85,13 @@ public interface APIService {
      */
     @GET("product/updateCarts")
     Observable<UpdataCartBean> rxUpdataCart(@Query("uid")String uid,@Query("sellerid")String sellerid,@Query("pid")String pid,@Query("selected") String selected,@Query("num") String num);
+
+
+    /**
+     * 休闲一刻
+     * @修改人和其它信息:
+     */
+    @GET("api/data/%E7%A6%8F%E5%88%A9/10/2")
+    Observable<RelaxBean> rxRelax();
 
 }

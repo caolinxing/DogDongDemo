@@ -64,6 +64,16 @@ public class CartFragment extends BaseFragment implements QueryCart_Contract.Vie
 
     }
 
+    /**
+     *每次切换fragment回调onHiddenChanged()
+     * 及时更新页面
+     */
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        initData();
+    }
+
     @Override
     protected void onClickListener() {
         /**

@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -17,10 +18,13 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.myjd.adapter.MyMine_1_2RecyclerAdapter;
 import com.example.myjd.adapter.MyMine_2_2RecyclerAdapter;
 import com.example.myjd.adapter.MyMine_3_2RecyclerAdapter;
-import com.example.myjd.adapter.MyTuiJian2Adapter;
+import com.example.myjd.adapter.MyRelaxAdapter;
 import com.example.myjd.base.BaseFragment;
 import com.example.myjd.bean.CartMutilRecyclerBean;
 import com.example.myjd.bean.Mine1_Bean;
+import com.example.myjd.bean.RelaxBean;
+import com.example.myjd.bean.RelaxCanShuBean;
+import com.example.myjd.mvp.contract.Relax_Contract;
 import com.example.myjd.utils.Logger;
 import com.example.myjd.utils.ToastUtils;
 import com.example.myjd.view.R;
@@ -35,7 +39,7 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MineFragment extends BaseFragment implements View.OnClickListener {
+public class MineFragment extends BaseFragment implements View.OnClickListener , Relax_Contract.View{
 
 
     private com.facebook.drawee.view.SimpleDraweeView mMineIvTouxiang;
@@ -53,6 +57,9 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
     private ArrayList<CartMutilRecyclerBean> mine3_beanList = new ArrayList<>();
     private MyMine_3_2RecyclerAdapter adapter_min3;
     private RecyclerView mMineTJRecyclerView;
+    private List<RelaxBean.ResultsBean> relaxBeanList = new ArrayList<>();
+    private MyRelaxAdapter relax_adapter;
+    private Relax_Contract.Presenter presenter;
 
     public MineFragment() {
         // Required empty public constructor
@@ -122,15 +129,22 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
                 ToastUtils.showToast(getActivity(),"点击了第"+position+"条");
             }
         });
-        mMineTJRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(),2));
-        /*MyTuiJian2Adapter adapter2 = new MyTuiJian2Adapter(getActivity(), );
-        mMineTJRecyclerView.setAdapter(adapter2);*/
+//        mMineTJRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL));
+        /**
+         * 休闲一刻适配器
+         */
+        /*relax_adapter = new MyRelaxAdapter(R.layout.item_relax_layout,relaxBeanList);
+        mMineTJRecyclerView.setAdapter(relax_adapter);
+        presenter = new Relax_Presenter(this);
+        presenter.setData();*/
     }
 
     @Override
     protected void initData() {
         userinfo = getActivity().getSharedPreferences("userinfo", Context.MODE_PRIVATE);
         uid = userinfo.getString("uid", "");
+        String userName = userinfo.getString("userName","");
+        mMineTvUname.setText(userName);
     }
 
     @Override
@@ -156,7 +170,8 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         mMineRecycler1.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false));
         mMineRecycler2.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false));
         mMineRecycler3.setLayoutManager(new GridLayoutManager(getActivity(),4));
-        mMineTJRecyclerView = (RecyclerView) v.findViewById(R.id.mine_TJ_recycler_view);
+       // mMineTJRecyclerView = (RecyclerView) v.findViewById(R.id.mine_TJ_recycler_view);
+       // mMineTJRecyclerView.addItemDecoration(new SpacesItemDecoration(5));
     }
 
     @Override
@@ -179,6 +194,9 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         }
     }
 
+    /**
+     * 判断：跳转登入页面
+     */
     private void isStartLogin() {
         if (TextUtils.isEmpty(uid)){
             startActivity(new Intent(getActivity(), LoginActivity.class));
@@ -188,5 +206,37 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
             Logger.i("--------------------"+uid);
             startActivity(intent);
         }
+    }
+
+    /**
+     * 休闲一刻数据
+     * @param relaxBean
+     */
+    @Override
+    public void onSuccessful1(RelaxBean relaxBean) {
+        Logger.e("集合："+relaxBean.getResults().size());
+        relaxBeanList.addAll(relaxBean.getResults());
+        //刷新适配器
+        relax_adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onFaild1(String errorMsg) {
+        Logger.i(errorMsg);
+    }
+
+    /**
+     * 参数bean
+     * @return
+     */
+    @Override
+    public RelaxCanShuBean setCanshu() {
+        return new RelaxCanShuBean(10,2);
+    }
+
+    @Override
+    public void onDestroy() {
+        presenter.onDestroy();
+        super.onDestroy();
     }
 }
