@@ -148,6 +148,12 @@ public class MineFragment extends BaseFragment implements View.OnClickListener ,
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        initData();
+    }
+
+    @Override
     protected void findView(View v) {
         /**
          *初始化控件
@@ -203,6 +209,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener ,
         }else {
             Intent intent = new Intent(getActivity(),UserInfoActivity.class);
             intent.putExtra("uid", uid);
+
             Logger.i("--------------------"+uid);
             startActivity(intent);
         }

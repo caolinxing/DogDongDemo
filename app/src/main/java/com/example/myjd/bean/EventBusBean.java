@@ -13,6 +13,10 @@ public class EventBusBean {
     private String num;
     private String selected;
 
+    public EventBusBean() {
+        super();
+    }
+
     public EventBusBean(String uid, String pid, String url, String sellerid, String num, String selected) {
         this.uid = uid;
         this.pid = pid;

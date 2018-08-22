@@ -16,6 +16,7 @@ import com.example.myjd.base.BaseActivity;
 import com.example.myjd.bean.UserInfo;
 import com.example.myjd.mvp.contract.Login_Contract;
 import com.example.myjd.mvp.presenter.Login_Presenter;
+import com.example.myjd.utils.PhoneFormatCheckUtils;
 import com.example.myjd.utils.ToastUtils;
 import com.example.myjd.view.R;
 import com.socks.library.KLog;
@@ -77,7 +78,12 @@ public class LoginActivity extends BaseActivity implements Login_Contract.View {
             case R.id.lin:
                 break;
             case R.id.btn_login:
-                presenter.login();
+                boolean chinaPhoneLegal = PhoneFormatCheckUtils.isChinaPhoneLegal(ediName.getText().toString());
+                if(chinaPhoneLegal){
+                    presenter.login();
+                }else {
+                   ediName.setError("请输入正确的手机号");
+                }
                 break;
             case R.id.tv_yanzhengma:
                 break;

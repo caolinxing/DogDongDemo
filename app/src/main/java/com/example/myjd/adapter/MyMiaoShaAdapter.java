@@ -62,7 +62,7 @@ public class MyMiaoShaAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, final int position) {
         if(holder instanceof ViewHolder1){
             ViewHolder1 holder1 = (ViewHolder1) holder;
-            long expires = 1534521600;
+            long expires = 1546300800;
             long current = System.currentTimeMillis()/1000;
             if (expires < current) {
                 holder1.item_miaosha1_tv_timer.setText("活动已结束");

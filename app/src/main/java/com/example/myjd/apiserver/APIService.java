@@ -3,6 +3,7 @@ package com.example.myjd.apiserver;
 
 import com.example.myjd.bean.AddCartBean;
 import com.example.myjd.bean.CartBean;
+import com.example.myjd.bean.DingDanBean;
 import com.example.myjd.bean.GoodsListBean;
 import com.example.myjd.bean.HomeBean;
 import com.example.myjd.bean.JGGDaoHangBean;
@@ -94,4 +95,10 @@ public interface APIService {
     @GET("api/data/%E7%A6%8F%E5%88%A9/10/2")
     Observable<RelaxBean> rxRelax();
 
+    /**
+     * 提交订单
+     * @修改人和其它信息:
+     */
+    @GET("product/createOrder")
+    Observable<DingDanBean> rxDingDan(@Query("uid") String uid,@Query("price") String price );
 }

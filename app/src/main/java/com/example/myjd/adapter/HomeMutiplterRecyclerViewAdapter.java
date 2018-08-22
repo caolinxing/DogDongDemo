@@ -1,5 +1,6 @@
 package com.example.myjd.adapter;
 
+import android.content.Intent;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -7,13 +8,17 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.myjd.bean.MutilRecyclerBean;
 import com.example.myjd.utils.SpacesItemDecoration;
+import com.example.myjd.utils.ToastUtils;
 import com.example.myjd.view.R;
+import com.example.myjd.view.activity.GoodsListActivity;
+import com.example.myjd.view.activity.GoodsXiangQingActivity;
 import com.gongwen.marqueen.SimpleMF;
 import com.gongwen.marqueen.SimpleMarqueeView;
 import com.stx.xhb.xbanner.XBanner;
@@ -63,6 +68,14 @@ public class HomeMutiplterRecyclerViewAdapter extends BaseMultiItemQuickAdapter<
                         Glide.with(mContext).load(imgList.get(position)).into((ImageView) view);
                     }
                 });
+                banner.setOnItemClickListener(new XBanner.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(XBanner banner, int position) {
+                        Intent intent = new Intent(mContext, GoodsListActivity.class);
+                        intent.putExtra("pscid","1");
+                        mContext.startActivity(intent);
+                    }
+                });
                 break;
             case MutilRecyclerBean.TYPE_CAIDAN:
                 //1.获取每页的数量
@@ -82,7 +95,10 @@ public class HomeMutiplterRecyclerViewAdapter extends BaseMultiItemQuickAdapter<
                     RecyclerView_JGG adapter = new RecyclerView_JGG(mContext,item.getJggBean().getData(),index, new RecyclerView_JGG.onItemClickListener() {
                         @Override
                         public void onItemClick(View view, int position) {
-
+                            ToastUtils.showToast(mContext,"position:"+position);
+                            Intent intent = new Intent(mContext, GoodsListActivity.class);
+                            intent.putExtra("pscid","1");
+                            mContext.startActivity(intent);
                         }
                     });
                     recyclerView.setAdapter(adapter);

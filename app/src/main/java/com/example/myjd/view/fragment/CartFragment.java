@@ -9,6 +9,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
@@ -19,6 +20,7 @@ import com.example.myjd.base.BaseFragment;
 import com.example.myjd.bean.CartBean;
 import com.example.myjd.bean.QueryCartMutilplterBean;
 import com.example.myjd.bean.UpdataCartBean;
+import com.example.myjd.mvp.contract.DingDan_Contract;
 import com.example.myjd.mvp.contract.QueryCart_Contract;
 import com.example.myjd.mvp.contract.UpdataCart_Contract;
 import com.example.myjd.mvp.presenter.QueryCart_Presenter;
@@ -26,6 +28,7 @@ import com.example.myjd.mvp.presenter.UpdataCart_Presenter;
 import com.example.myjd.utils.Logger;
 import com.example.myjd.utils.ToastUtils;
 import com.example.myjd.view.R;
+import com.example.myjd.view.activity.DingDan;
 import com.example.myjd.view.activity.LoginActivity;
 
 import java.text.DecimalFormat;
@@ -36,7 +39,7 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class CartFragment extends BaseFragment implements QueryCart_Contract.View,UpdataCart_Contract.View {
+public class CartFragment extends BaseFragment implements QueryCart_Contract.View,UpdataCart_Contract.View{
 
 
     private android.support.v7.widget.RecyclerView mGoodsRecyclerView;
@@ -54,6 +57,10 @@ public class CartFragment extends BaseFragment implements QueryCart_Contract.Vie
     private int selected1;
     private boolean b;
     private TextView mCartTvTishi;
+    private Button mGoodsBnCount;
+    private String allPrice_1;
+    private DingDan_Contract.Presenter dingDan_presenter;
+
 
     public CartFragment() {
     }
@@ -105,6 +112,16 @@ public class CartFragment extends BaseFragment implements QueryCart_Contract.Vie
                 adapter.notifyDataSetChanged();
             }
         });
+
+       //下单
+        mGoodsBnCount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), DingDan.class);
+                intent.putExtra("price",allPrice_1);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -148,6 +165,7 @@ public class CartFragment extends BaseFragment implements QueryCart_Contract.Vie
         mGoodsAllPrice = (TextView) v.findViewById(R.id.goods_allPrice);
         mGoodsRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mCartTvTishi = (TextView) v.findViewById(R.id.cart_tv_tishi);
+        mGoodsBnCount = (Button) v.findViewById(R.id.goods_btn_count);
     }
 
     @Override
@@ -293,6 +311,7 @@ public class CartFragment extends BaseFragment implements QueryCart_Contract.Vie
          * 格式化价格数据为0.00(保留两位)
          */
         String GoodsAllPrice = df.format(allPrice);
+        allPrice_1 = GoodsAllPrice;
         mGoodsAllPrice.setText("￥"+GoodsAllPrice);
     }
 
@@ -303,4 +322,7 @@ public class CartFragment extends BaseFragment implements QueryCart_Contract.Vie
         super.onDestroy();
 
     }
+
+
+
 }

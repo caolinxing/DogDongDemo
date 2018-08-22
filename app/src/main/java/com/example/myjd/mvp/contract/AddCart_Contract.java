@@ -10,7 +10,7 @@ import com.example.myjd.bean.AddCartBean;
  */
 public interface AddCart_Contract {
     interface Model {
-        void setData(String uid,String pid,OnHttpCallBack1<AddCartBean> onHttpCallBack);
+        void setData(String uid, String pid, OnHttpCallBack1<AddCartBean> onHttpCallBack);
     }
 
     interface View extends OnHttpCallBack1<AddCartBean> {
@@ -22,7 +22,8 @@ public interface AddCart_Contract {
     }
 
     interface Presenter {
-        void setData(String uid,String pid);
+        void setData(String uid, String pid);
+
         void onDestory();
     }
 }

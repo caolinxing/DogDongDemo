@@ -47,7 +47,9 @@
             android:name=".activity.GoodsListActivity"
             android:launchMode="singleTask" />
         <activity android:name=".activity.GoodsXiangQingActivity" />
-        <activity android:name=".activity.UserInfoActivity"></activity>
+        <activity android:name=".activity.UserInfoActivity" />
+        <activity android:name=".activity.DingDanListActivity" />
+        <activity android:name=".activity.DingDan"></activity>
     </application>
 
 </manifest>
